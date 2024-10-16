@@ -3,24 +3,12 @@
 use App\Http\Controllers\ContaController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request; 
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
+use Illuminate\Http\Request; // Certifique-se de que esta linha está correta
+use App\Http\Controllers\BudgetController;
 
 // CONTAS
-Route::get('/', function () {
-    return view('auth/register');
-});
+Route::get('/', [BudgetController::class, 'index'])->name('home'); // Altera a rota inicial para o orçamento
+
 Route::middleware('conta')->group(function () {
     Route::get('/index-conta', [ContaController::class, 'index'])->name('conta.index');
     Route::get('/create-conta', [ContaController::class, 'create'])->name('conta.create');
@@ -34,6 +22,10 @@ Route::middleware('conta')->group(function () {
     Route::get('/gerar-pdf-conta', [ContaController::class, 'gerarPdf'])->name('conta.gerar-pdf');
     Route::get('/gerar-csv-conta', [ContaController::class, 'gerarCsv'])->name('conta.gerar-csv');
     Route::get('/gerar-word-conta', [ContaController::class, 'gerarWord'])->name('conta.gerar-word');
+
+    // Rotas do orçamento
+    Route::get('/budget', [BudgetController::class, 'index'])->name('budget.index');
+    Route::post('/budget/calculate', [BudgetController::class, 'calculate'])->name('budget.calculate');
 });
 
 // AUTH
@@ -44,16 +36,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
-    // Nova rota para atualizar o perfil usando o builder
-    Route::post('/profile/update', function(Request $request) {
+    Route::post('/profile/update', function(Request $request) { // Aqui está o uso correto de Request
         $controller = ProfileController::builder()
-            ->fields(['name', 'email']) // Ajuste os campos conforme necessário
+            ->fields(['name', 'email'])
             ->redirect('dashboard')
             ->successMessage('perfil-atualizado');
 
         return $controller->updateProfile($request);
     })->name('profile.update');
 });
-
 
 require __DIR__.'/auth.php';

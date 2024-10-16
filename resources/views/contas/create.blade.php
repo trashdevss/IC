@@ -1,3 +1,5 @@
+<!-- resources/views/budget/create.blade.php -->
+
 @extends('layouts.admin')
 
 @section('content')
@@ -18,20 +20,17 @@
 
                 <div class="col-md-12 col-sm-12">
                     <label for="nome" class="form-label">Nome</label>
-                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome da conta"
-                        value="{{ old('nome') }}">
+                    <input type="text" name="nome" class="form-control" id="nome" placeholder="Nome da conta" value="{{ old('nome') }}">
                 </div>
 
                 <div class="col-md-4 col-sm-12">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="text" name="valor" class="form-control" id="valor" placeholder="Valor da conta"
-                        value="{{ old('valor') }}">
+                    <input type="text" name="valor" class="form-control" id="valor" placeholder="Valor da conta" value="{{ old('valor') }}">
                 </div>
 
                 <div class="col-md-4 col-sm-12">
                     <label for="vencimento" class="form-label">Vencimento</label>
-                    <input type="date" name="vencimento" class="form-control" id="vencimento"
-                        value="{{ old('vencimento') }}">
+                    <input type="date" name="vencimento" class="form-control" id="vencimento" value="{{ old('vencimento') }}">
                 </div>
 
                 <div class="col-md-4 col-sm-12">
@@ -39,8 +38,7 @@
                     <select name="situacao_conta_id" id="situacao_conta_id" class="form-select select2">
                         <option value="">Selecione</option>
                         @forelse ($situacoesContas as $situacaoConta)
-                            <option value="{{ $situacaoConta->id }}"
-                                {{ old('situacao_conta_id') == $situacaoConta->id ? 'selected' : '' }}>
+                            <option value="{{ $situacaoConta->id }}" {{ old('situacao_conta_id') == $situacaoConta->id ? 'selected' : '' }}>
                                 {{ $situacaoConta->nome }}</option>
                         @empty
                             <option value="">Nenhuma situação da conta encontrada</option>
@@ -58,13 +56,13 @@
 
 <style>
     .shadow-card {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumentei a sombra */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         padding: 20px;
     }
 
     .shadow-header {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Aumentei a sombra */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         padding: 10px;
         background-color: #fff;
